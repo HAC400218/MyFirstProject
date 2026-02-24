@@ -2,6 +2,7 @@ package com.trafficlight.sys.controller;
 
 import org.springframework.http.HttpStatus;
 import com.trafficlight.sys.exception.ErrorResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -9,10 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
        @ExceptionHandler(IllegalStateException.class)
-       public ErrorResponse handleStateException(IllegalStateException exception){
-        return new ErrorResponse(
-                HttpStatus.BAD_REQUEST.value(),
-                exception.getMessage()
-        );
+       public ResponseEntity<ErrorResponse> handleStateException(IllegalStateException exception){
+           ErrorResponse errorResponse=new ErrorResponse(HttpStatus.CONFLICT.value(), exception.getMessage());
+           return new ResponseEntity<>(errorResponse,HttpStatus.CONFLICT);
        }
 }
