@@ -40,7 +40,7 @@ public class TrafficLightController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("{id}/currentstate") 
+    @GetMapping("/{id}/currentstate")
     public ResponseEntity<?> getCurrentState(@PathVariable("id") String intersectionId){
         InterSection interSection=trafficLightService.getIntersections(intersectionId);
         return new ResponseEntity<>(interSection,HttpStatus.OK);
