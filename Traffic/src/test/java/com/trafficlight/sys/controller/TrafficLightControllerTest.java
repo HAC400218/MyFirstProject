@@ -53,7 +53,7 @@ class TrafficLightControllerTest {
 
 
     @Test
-    void testCurrentState_returnsOkAndBody() {
+    void testCurrentState_returns200() {
 
         String intersectionId = "T1";
         InterSection dto = new InterSection(intersectionId);
