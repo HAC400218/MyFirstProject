@@ -53,4 +53,27 @@ public class InterSectionTest {
                 ()->interSection.SetGreen(TrafficDirection.WEST)
         );
     }
+
+    @Test
+    void TestPreventConcurrencyConflictGreen() throws InterruptedException {
+        Thread t1=new Thread(()->interSection.SetGreen(TrafficDirection.NORTH));
+        Thread t2=new Thread(()->{
+            try{
+                interSection.SetGreen(TrafficDirection.EAST);
+            }catch (Exception ignored){}
+        });
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
+
+        long greencount=interSection.getLights().values().stream().filter(
+                light->light
+                        .getTrafficLightColor()==TrafficLightColor.GREEN
+                )
+                .count();
+        assertEquals(1,greencount);
+
+    }
 }
