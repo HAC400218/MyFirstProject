@@ -67,4 +67,8 @@ public class InterSection {
     public void resume(){
         paused=false;
     }
+
+    public boolean isPaused(){
+        return paused;
+    }
 }
